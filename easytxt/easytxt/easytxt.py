@@ -1,6 +1,8 @@
 ﻿'''
 Opis biblioteki easytxt:
 
+Biblioteka działa podobnie do biblioteki easygui z tym, że tutaj wymiana informacji 
+z użytkownikiem odbywa się za pomoca terminala, nie posiada ona GUI
 
 '''
 
@@ -10,7 +12,8 @@ __all__ = [
     , 'kontynuowac'
     , 'podajLiczbe'
     , 'podajHaslo'
-
+    , 'dowolne'
+    , 'wybierzWiele'
 ]
 
 import os
@@ -18,7 +21,7 @@ import sys
 import string
 
 
-'''
+
 if sys.hexversion >= 0x020600F0:
     runningPython26 = True
 else:
@@ -28,7 +31,7 @@ if sys.hexversion >= 0x030000F0:
     runningPython3 = True
 else:
     runningPython3 = False
-'''
+
 #-----------------------------------------------------------------------
 # wiadomosc(tresc) - pozwala wyswietlic wiadomosc dowolnej tresci
 #-----------------------------------------------------------------------
@@ -115,6 +118,25 @@ def dowolne(tresc):
 	return z
 	
 #-----------------------------------------------------------------------
-# () - 
+# wybierzWiele(*elementy) - pozwala na wybor wielu elementow z ustalonej listy
 #-----------------------------------------------------------------------
 
+def wybierzWiele(*elementy):
+	
+	elementy = [str(element) for element in elementy]
+	for i in range(0, len(elementy)):
+		print "\n",[i], elementy[i]
+	
+	w = raw_input("Wybierz dowolna liczbe elementow, podajac ich numery oddzielone spacjami: ")
+	numery = w.split()
+	#dla py2
+	if runningPython26:
+		numery = map(int, numery)
+	#dla py3
+	if runningPython3:
+		numery = list(map(int, numery))
+	wybory = []
+	for i in range(0, len(numery)):
+		wybory.append(elementy[numery[i]])
+		
+	return wybory
