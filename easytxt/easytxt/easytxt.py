@@ -117,8 +117,7 @@ def podajHaslo(znaki):
 		
 def dowolne(tresc):
 
-	z = tresc
-	return z
+	return tresc
 	
 #-----------------------------------------------------------------------
 # wybierzWiele(*elementy) - pozwala na wybor wielu elementow z ustalonej listy
@@ -139,7 +138,7 @@ if runningPython26:
 			wybory.append(elementy[numery[i]])
 			
 		return wybory
-else:
+if runningPython3:
 	def wybierzWiele(*elementy):
 	
 		elementy = [str(element) for element in elementy]
