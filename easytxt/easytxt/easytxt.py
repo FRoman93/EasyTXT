@@ -80,15 +80,18 @@ def kontynuowac():
 # podajLiczbe(od, do)  - umozliwia wprowadzenie i walidacje liczby calkowitej
 #-----------------------------------------------------------------------
 
-def podajLiczbe(od, do):
+def podajLiczbe(poczatek, koniec):
 	
-	print "\nPodaj liczbe z przedzialu od {0} do {1}".format(od, do)
-	q=raw_input()
-	d=int(q)
-	if ((d > od and d < do) and isinstance(d, int)):
-		return d
-	else:
-		return podajLiczbe(od, do)
+	print "\nPodaj liczbe z przedzialu od {0} do {1}".format(poczatek, koniec)
+	
+	try:
+		d = int(raw_input())
+		if (d > poczatek and d < koniec):
+			return d
+		else:
+			return podajLiczbe(poczatek, koniec)
+	except:
+		return podajLiczbe(poczatek, koniec)
 	
 #-----------------------------------------------------------------------
 # podajHaslo(znaki) - umozliwia wprowadzenie zamaskowanego hasla
@@ -121,22 +124,33 @@ def dowolne(tresc):
 # wybierzWiele(*elementy) - pozwala na wybor wielu elementow z ustalonej listy
 #-----------------------------------------------------------------------
 
-def wybierzWiele(*elementy):
+if runningPython26:
+	def wybierzWiele(*elementy):
 	
-	elementy = [str(element) for element in elementy]
-	for i in range(0, len(elementy)):
-		print "\n",[i], elementy[i]
-	
-	w = raw_input("Wybierz dowolna liczbe elementow, podajac ich numery oddzielone spacjami: ")
-	numery = w.split()
-	#dla py2
-	if runningPython26:
-		numery = map(int, numery)
-	#dla py3
-	if runningPython3:
-		numery = list(map(int, numery))
-	wybory = []
-	for i in range(0, len(numery)):
-		wybory.append(elementy[numery[i]])
+		elementy = [str(element) for element in elementy]
+		for i in range(0, len(elementy)):
+			print "\n",[i], elementy[i]
 		
-	return wybory
+		w = raw_input("Wybierz dowolna liczbe elementow, podajac ich numery oddzielone spacjami: ")
+		numery = w.split()
+		numery = map(int, numery)
+		wybory = []
+		for i in range(0, len(numery)):
+			wybory.append(elementy[numery[i]])
+			
+		return wybory
+else:
+	def wybierzWiele(*elementy):
+	
+		elementy = [str(element) for element in elementy]
+		for i in range(0, len(elementy)):
+			print "\n",[i], elementy[i]
+		
+		w = raw_input("Wybierz dowolna liczbe elementow, podajac ich numery oddzielone spacjami: ")
+		numery = w.split()
+		numery = list(map(int, numery))
+		wybory = []
+		for i in range(0, len(numery)):
+			wybory.append(elementy[numery[i]])
+			
+		return wybory
